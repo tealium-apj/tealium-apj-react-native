@@ -8,44 +8,46 @@ import {
   Dispatchers,
   Collectors,
   ConsentPolicy,
-  ConsentStatus,
+  ConsentStatus
 } from 'tealium-react-native/common';
 
 const App = () => {
   const [result, setResult] = useState('');
 
   useEffect(() => {
-    const config: TealiumConfig = {
+    const config: TealiumConfig ={
       account: 'success-ryunosuke-senda',
       profile: 'mobile-test',
-      environment: TealiumEnvironment.prod,
+      environment: TealiumEnvironment.dev,
+      instance: 'main',
       collectors: [
         Collectors.AppData,
         Collectors.DeviceData,
         Collectors.Connectivity
       ],
-      dispatchers: [Dispatchers.Collect],
-      consentPolicy: ConsentPolicy.gdpr, // Remove this and the payload will send
+      dispatchers: [Dispatchers.Collect, Dispatchers.TagManagement],
+      consentPolicy: ConsentPolicy.gdpr,
       visitorServiceEnabled: true,
+      logLevel: 'prod',
     };
 
     Tealium.initialize(config);
     Tealium.setConsentStatus(ConsentStatus.consented);
-    console.log('Tealium initialized');
+    console.log('✅ Tealium initialized');
   }, []);
 
   const trackTealiumEvent = () => {
-    console.log('Sending Tealium event');
+    console.log('📡 Sending Tealium event');
     try {
       let tealEvent = new TealiumEvent(
         'ButtonClicked',
         { button_name: 'SignUp' }
       );
       Tealium.track(tealEvent);
-      setResult('Tracked event: ButtonClicked /' + JSON.stringify(tealEvent));
+      setResult('Tracked event: ButtonClicked');
     } catch (e) {
       setResult('Error tracking event');
-      console.error('Error tracking Tealium event:', e);
+      console.error('❌ Error tracking Tealium event:', e);
     }
   };
 
