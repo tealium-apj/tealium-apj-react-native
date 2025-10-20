@@ -1075,14 +1075,14 @@ PODS:
     - React-logger (= 0.73.11)
     - React-perflogger (= 0.73.11)
   - SocketRocket (0.6.1)
-  - tealium-react-native (2.6.1):
+  - tealium-react-native (2.6.2):
     - React-Core
-    - tealium-swift/Collect (~> 2.16)
-    - tealium-swift/Core (~> 2.16)
-    - tealium-swift/Lifecycle (~> 2.16)
-    - tealium-swift/RemoteCommands (~> 2.16)
-    - tealium-swift/TagManagement (~> 2.16)
-    - tealium-swift/VisitorService (~> 2.16)
+    - tealium-swift/Collect (~> 2.18)
+    - tealium-swift/Core (~> 2.18)
+    - tealium-swift/Lifecycle (~> 2.18)
+    - tealium-swift/RemoteCommands (~> 2.18)
+    - tealium-swift/TagManagement (~> 2.18)
+    - tealium-swift/VisitorService (~> 2.18)
   - tealium-swift/Collect (2.18.1):
     - tealium-swift/Core
   - tealium-swift/Core (2.18.1)
@@ -1345,7 +1345,7 @@ SPEC CHECKSUMS:
   React-utils: e8549669b504c18929b2e9aa4d87657e530a91a4
   ReactCommon: 95e8885213aab98c49fd0e24917f07c435c4347d
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
-  tealium-react-native: fb07f0dc11f2a67fa4429810653bd77f7976a63d
+  tealium-react-native: 7d0e010bcc4d865860b858e7d498d6b44fb2f5ea
   tealium-swift: de74acd7564833f87204dcf83bf5e8737c041915
   Yoga: a813a6d82538ccba91c54406404e3ed80b48a692
 

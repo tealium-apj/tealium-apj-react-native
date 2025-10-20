@@ -16,7 +16,7 @@ const App = () => {
 
   useEffect(() => {
     const config: TealiumConfig = {
-      account: 'success-ryunosuke-senda',
+      account: 'success-ramin-hafezi',
       profile: 'mobile-test',
       environment: TealiumEnvironment.prod,
       collectors: [
@@ -25,7 +25,7 @@ const App = () => {
         Collectors.Connectivity
       ],
       dispatchers: [Dispatchers.Collect],
-      consentPolicy: ConsentPolicy.gdpr, // Remove this and the payload will send
+      // consentPolicy: ConsentPolicy.gdpr, // Remove this and the payload will send
       visitorServiceEnabled: true,
     };
 
