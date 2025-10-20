@@ -1,80 +1,171 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Tealium APJ React Native
 
-# Getting Started
+This repository contains a React Native app. Below are step-by-step instructions to get the project running on macOS for both iOS and Android. These instructions assume a fresh macOS developer machine.
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+## Prerequisites (macOS)
 
-## Step 1: Start the Metro Server
+- Homebrew (package manager)
+- Node.js (LTS) and npm or Yarn
+- Xcode (for iOS)
+- Android SDK / Android Studio (for Android) — full Android Studio is recommended, but a CLI-only Android SDK setup is also provided below
+- CocoaPods (for iOS native dependencies)
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
-
-To start Metro, run the following command from the _root_ of your React Native project:
-
-```bash
-# using npm
-npm start
-
-# OR using Yarn
-yarn start
-```
-
-## Step 2: Start your Application
-
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
-
-### For Android
+If you don't have Homebrew installed yet, install it with:
 
 ```bash
-# using npm
-npm run android
-
-# OR using Yarn
-yarn android
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-### For iOS
+Then install common tools:
 
 ```bash
-# using npm
-npm run ios
+brew install node
 
-# OR using Yarn
-yarn ios
+# Optional: yarn package manager
+brew install yarn
+
+# Watchman (recommended for React Native development)
+brew install watchman
+
+# CocoaPods
+sudo gem install cocoapods
+# or
+brew install cocoapods
 ```
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+Note: If you prefer Node via nvm, use nvm to install a supported Node LTS instead of Homebrew.
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+## iOS — Setup and Run
 
-## Step 3: Modifying your App
+1. Install Xcode from the App Store and the Command Line Tools:
 
-Now that you have successfully run the app, let's modify it.
+```bash
+xcode-select --install
+```
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+2. From the project root, install iOS native dependencies (CocoaPods):
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+```bash
+cd ios
+pod install
+cd ..
+```
 
-## Congratulations! :tada:
+3. Start Metro (the React Native bundler) in a separate terminal:
 
-You've successfully run and modified your React Native App. :partying_face:
+```bash
+npx react-native start
+```
 
-### Now what?
+4. Run the app on the iOS simulator:
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
+```bash
+# choose a simulator by name, e.g. iPhone 14
+npx react-native run-ios --simulator "iPhone 14"
+```
 
-# Troubleshooting
+Alternatively, open `ios/TealiumAPJreactNative.xcworkspace` in Xcode and run from there. If you encounter provisioning or code signing errors when building to a device, use Xcode's signing settings to select a development team or use a simulator for quick testing.
 
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+## Android — Setup and Run
 
-# Learn More
+You have two main options: install full Android Studio (recommended for most users), or install only the Android SDK command-line tools (CLI-only). In either case, set the following environment variables in your `~/.zshrc` (or other shell rc):
 
-To learn more about React Native, take a look at the following resources:
+```bash
+# add to ~/.zshrc
+export ANDROID_HOME="$HOME/Library/Android/sdk"
+export PATH="$PATH:$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools"
+```
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
-# tealium-apj-react-native
+Reload your shell after editing:
+
+```bash
+source ~/.zshrc
+```
+
+### Option A — Android Studio (full install, recommended)
+
+1. Download and install Android Studio from https://developer.android.com/studio.
+2. In Android Studio's SDK Manager, install:
+   - Android SDK Platform 33 (or a compatible API level for the project)
+   - Android SDK Platform-Tools
+   - Android SDK Build-Tools
+   - Android Emulator (if you want an emulator)
+   - A system image (e.g. "Google APIs x86_64") for an emulator
+
+3. Create and start an AVD (emulator) via AVD Manager in Android Studio.
+
+4. From the project root, run:
+
+```bash
+# start Metro if not already running
+npx react-native start
+
+# in another terminal, build & run on the emulator/device
+npx react-native run-android
+```
+
+### Option B — CLI-only Android SDK (no Android Studio GUI)
+
+This option installs only the Android SDK command-line tools and is useful if you prefer a minimal setup.
+
+1. Download the Command line tools for macOS from:
+   https://developer.android.com/studio#cmdline-tools
+
+2. Unzip and place the command-line tools under `$HOME/Library/Android/cmdline-tools/latest` (create directories as necessary). Example:
+
+```bash
+mkdir -p "$HOME/Library/Android/cmdline-tools"
+unzip commandlinetools-mac-*.zip -d "$HOME/Library/Android/cmdline-tools/latest"
+```
+
+3. Set `ANDROID_HOME` and add sdkmanager/emulator to PATH (see snippet above).
+
+4. Use `sdkmanager` to install required SDK components (example targets API 33 — adjust if needed):
+
+```bash
+# install platform tools, build-tools, emulator and a system image
+sdkmanager --sdk_root="$HOME/Library/Android/sdk" "platform-tools" "platforms;android-33" "build-tools;33.0.0" "emulator" "system-images;android-33;google_apis;x86_64"
+```
+
+5. Create an AVD using `avdmanager`:
+
+```bash
+avdmanager create avd -n pixel -k "system-images;android-33;google_apis;x86_64" --device "pixel"
+```
+
+6. Start the emulator:
+
+```bash
+$ANDROID_HOME/emulator/emulator -avd pixel
+```
+
+7. Build and run the app (from project root):
+
+```bash
+# start Metro if not already running
+npx react-native start
+
+# in another terminal
+npx react-native run-android
+```
+
+If you prefer to test on a physical Android device, enable USB debugging on the device and connect it to your Mac. Confirm adb device listing with:
+
+```bash
+adb devices
+```
+
+## Common Troubleshooting
+
+- If pod install fails, run `pod repo update` then `pod install`.
+- If Metro still serves old bundles, clear cache: `npx react-native start --reset-cache`.
+- For Android build failures, check the Android SDK versions in `android/build.gradle` and installed SDK versions. Also confirm `ANDROID_HOME` is set correctly.
+
+## Quick checklist
+
+1. Install Homebrew, Node, Watchman, CocoaPods
+2. Install Xcode + Command Line Tools
+3. Install Android Studio (or CLI SDK) and configure `ANDROID_HOME`
+4. In project: `cd ios && pod install` then `npx react-native run-ios` or `npx react-native run-android`
+
+If you'd like, I can also add convenience scripts (Makefile or npm scripts) to automate some of these steps. Let me know which you prefer.
