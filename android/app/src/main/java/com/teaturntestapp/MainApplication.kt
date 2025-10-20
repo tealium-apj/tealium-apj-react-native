@@ -1,4 +1,4 @@
-package com.teaturntestapp
+package com.TealiumAPJreactNative
 
 import android.app.Application
 import com.facebook.react.PackageList
