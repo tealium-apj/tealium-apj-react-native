@@ -16,8 +16,8 @@ const App = () => {
 
   useEffect(() => {
     const config: TealiumConfig = {
-      account: 'success-ramin-hafezi',
-      profile: 'main',
+      account: '{YOUR_ACCOUNT_NAME}',
+      profile: '{YOUR_PROFILE_NAME}',
       environment: TealiumEnvironment.prod,
       collectors: [
         Collectors.AppData,
@@ -30,7 +30,7 @@ const App = () => {
     };
 
     Tealium.initialize(config);
-    Tealium.joinTrace('PjiWBxzv');
+    Tealium.joinTrace('{YOUR_TRACE_ID}');
     console.log('Tealium initialized');
   }, []);
 
