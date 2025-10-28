@@ -9,6 +9,7 @@ import {
   Collectors,
   ConsentPolicy,
   ConsentStatus,
+  LogLevel,
 } from 'tealium-react-native/common';
 
 const App = () => {
@@ -16,8 +17,8 @@ const App = () => {
 
   useEffect(() => {
     const config: TealiumConfig = {
-      account: 'success-ryunosuke-senda',
-      profile: 'mobile-test',
+      account: 'countryroadgroup',
+      profile: 'main',
       environment: TealiumEnvironment.prod,
       collectors: [
         Collectors.AppData,
@@ -25,12 +26,15 @@ const App = () => {
         Collectors.Connectivity
       ],
       dispatchers: [Dispatchers.Collect],
-      consentPolicy: ConsentPolicy.gdpr, // Remove this and the payload will send
+      // consentPolicy: ConsentPolicy.gdpr, // Remove this and the payload will send
       visitorServiceEnabled: true,
+      useRemoteLibrarySettings: false,       // bypass mobile.html for this test
+      loglevel: LogLevel.dev,
     };
 
     Tealium.initialize(config);
-    Tealium.setConsentStatus(ConsentStatus.consented);
+    // Tealium.setConsentStatus(ConsentStatus.consented);
+    Tealium.joinTrace('EDzABnvS');
     console.log('Tealium initialized');
   }, []);
 
